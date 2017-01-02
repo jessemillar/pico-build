@@ -6,15 +6,17 @@ from shutil import copyfile
 output = os.path.basename(os.getcwd()) + '.p8'
 
 # make a copy of the assets.p8 file to use as the base
-copyfile('src/assets.p8', output)
+copyfile('src/_head.p8', output)
 
 filenames = glob.glob('src/*.p8')
 
 with open(output, 'a') as outfile:
     for fname in filenames:
-        if fname!='src/assets.p8':
+        if fname != 'src/_head.p8' and fname != 'src/_assets.p8':
             with open(fname, 'r') as readfile:
                 outfile.write('\n' + readfile.read())
+    with open('src/_assets.p8', 'r') as readfile:
+        outfile.write('\n' + readfile.read())
 
 if sys.argv[1]=='run':
     os.system("/Applications/PICO-8.app/Contents/MacOS/pico8 -run " + os.getcwd() + "/" + output)
