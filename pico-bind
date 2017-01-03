@@ -1,22 +1,33 @@
 #!/usr/bin/python2.7
 
 import glob, sys, os
-from shutil import copyfile
 
-output = os.path.basename(os.getcwd()) + '.p8'
+output = os.path.basename(os.getcwd()) + '.p8' # name the final file whatever the parent folder is
 
-# make a copy of the assets.p8 file to use as the base
-copyfile('src/_head.p8', output)
+filenames = glob.glob('src/*.p8') # get the .p8 files in the src directory
 
-filenames = glob.glob('src/*.p8')
-
-with open(output, 'a') as outfile:
-    for fname in filenames:
-        if fname != 'src/_head.p8' and fname != 'src/_assets.p8':
-            with open(fname, 'r') as readfile:
-                outfile.write('\n' + readfile.read())
-    with open('src/_assets.p8', 'r') as readfile:
-        outfile.write('\n' + readfile.read())
+with open(output, 'w') as f:
+    with open('src/_assets.p8') as r:
+        for line in r:
+            line = line.rstrip()
+            if line != '':
+                f.write(line + '\n')
+            else:
+                break
+    for filename in filenames:
+        if filename != 'src/_assets.p8':
+            with open(filename, 'r') as r:
+                f.write('\n' + r.read())
+    with open('src/_assets.p8', 'r') as r:
+        head = True;
+        for line in r:
+            line = line.rstrip()
+            if head:
+                if line == '':
+                    head = False
+                    f.write('\n')
+            else:
+                f.write(line + '\n')
 
 if sys.argv[1]=='run':
     os.system("/Applications/PICO-8.app/Contents/MacOS/pico8 -run " + os.getcwd() + "/" + output)
