@@ -1,4 +1,4 @@
 ## Installation
 ```
-ln -s $(pwd)/pico-compose /usr/local/bin
+ln -s $(pwd)/pico-bind /usr/local/bin
 ```
