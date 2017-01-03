@@ -14,4 +14,6 @@ See [the-staff-of-lewis](https://github.com/jessemillar/the-staff-of-lewis) for 
 ```
 repository
 	src
+		_assets.p8
+		example-file.p8
 ```
