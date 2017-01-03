@@ -7,6 +7,7 @@ output = os.path.basename(os.getcwd()) + '.p8' # name the final file whatever th
 filenames = glob.glob('src/*.p8') # get the .p8 files in the src directory
 
 with open(output, 'w') as f:
+    # nab the head of the _assets.p8 file
     with open('src/_assets.p8') as r:
         for line in r:
             line = line.rstrip()
@@ -14,10 +15,12 @@ with open(output, 'w') as f:
                 f.write(line + '\n')
             else:
                 break
+    # add in all files (except _assets.p8) from the src directory
     for filename in filenames:
         if filename != 'src/_assets.p8':
             with open(filename, 'r') as r:
                 f.write('\n' + r.read())
+    # get the graphics and sound effects from the second half of _assets.p8
     with open('src/_assets.p8', 'r') as r:
         head = True;
         for line in r:
@@ -29,5 +32,5 @@ with open(output, 'w') as f:
             else:
                 f.write(line + '\n')
 
-if sys.argv[1]=='run':
+if len(sys.argv) > 1 and sys.argv[1]=='run':
     os.system("/Applications/PICO-8.app/Contents/MacOS/pico8 -run " + os.getcwd() + "/" + output)
