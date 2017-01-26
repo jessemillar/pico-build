@@ -33,4 +33,4 @@ with open(output, 'w') as f:
                 f.write(line + '\n')
 
 if len(sys.argv) > 1 and sys.argv[1]=='run':
-    os.system("/Applications/PICO-8.app/Contents/MacOS/pico8 -run " + os.getcwd() + "/" + output)
+    os.system("pico8 -run " + os.getcwd() + "/" + output)
