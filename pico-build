@@ -32,5 +32,9 @@ with open(output, 'w') as f:
             else:
                 f.write(line + '\n')
 
-if len(sys.argv) > 1 and sys.argv[1]=='run':
-    os.system("pico8 -run " + os.getcwd() + "/" + output)
+if len(sys.argv) > 1:
+    if sys.argv[1]=='run':
+        os.system("pico8 -run " + os.getcwd() + "/" + output)
+    elif sys.argv[1]=='edit':
+        os.system("pico8 -run " + os.getcwd() + "/src/_assets.p8")
+    
