@@ -4,7 +4,7 @@ import glob, sys, os
 
 output = os.path.basename(os.getcwd()) + '.p8' # name the final file whatever the parent folder is
 
-filenames = glob.glob('src/*.p8') # get the .p8 files in the src directory
+filenames = sorted(glob.glob('src/*.p8')) # get the .p8 files in the src directory
 
 with open(output, 'w') as f:
     # nab the head of the _assets.p8 file
