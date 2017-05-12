@@ -4,8 +4,6 @@ import glob, sys, os
 
 output = os.path.basename(os.getcwd()) + '.p8' # name the final file whatever the parent folder is
 
-filenames = sorted(glob.glob('src/*.p8')) # get the .p8 files in the src directory
-
 with open(output, 'w') as f:
     # nab the head of the _assets.p8 file
     with open('src/_assets.p8') as r:
@@ -15,7 +13,17 @@ with open(output, 'w') as f:
                 f.write(line + '\n')
             else:
                 break
+    # add in all files in directories
+    for root, dirs, files in os.walk('src'):
+        dirs.sort()
+        for dirname in dirs:
+            filenames = sorted(glob.glob('src/' + dirname + '/*.p8')) # get the .p8 files in the src directory
+            for filename in filenames:
+                print(filename)
+                with open(filename, 'r') as r:
+                    f.write('\n' + r.read())
     # add in all files (except _assets.p8) from the src directory
+    filenames = sorted(glob.glob('src/*.p8')) # get the .p8 files in the src directory
     for filename in filenames:
         if filename != 'src/_assets.p8':
             with open(filename, 'r') as r:
