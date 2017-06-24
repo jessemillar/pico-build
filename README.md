@@ -1,5 +1,7 @@
 ## Installation
 ```
+git clone https://github.com/jessemillar/pico-build.git
+cd pico-build
 ln -s $(pwd)/pico-build /usr/local/bin
 ```
 
