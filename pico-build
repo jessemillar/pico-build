@@ -1,6 +1,6 @@
 #!/usr/bin/python2.7
 
-import glob, sys, os
+import glob, sys, os, platform
 
 output = os.path.basename(os.getcwd()) + '.p8' # name the final file whatever the parent folder is
 
@@ -39,9 +39,14 @@ with open(output, 'w') as f:
             else:
                 f.write(line + '\n')
 
+if platform.system() == 'Darwin':
+    command = "/Applications/PICO-8.app/Contents/MacOS/pico8"
+else:
+    command = "pico8"
+
 if len(sys.argv) > 1:
     if sys.argv[1]=='run':
-        os.system("pico8 -run " + os.getcwd() + "/" + output)
+        os.system(command + " -run " + os.getcwd() + "/" + output)
     elif sys.argv[1]=='edit':
-        os.system("pico8 -run " + os.getcwd() + "/src/_assets.p8")
+        os.system(command + " -run " + os.getcwd() + "/src/_assets.p8")
     
